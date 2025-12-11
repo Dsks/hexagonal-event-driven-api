@@ -1,0 +1,60 @@
+{
+  "info": {
+    "_postman_id": "b6a7c3d4-8f2e-4b1a-9c5d-3e2f1a0b4c5d",
+    "name": "Retail Hexagonal API",
+    "description": "Colección para probar la API de Pedidos (Retail) con arquitectura Hexagonal y Event-Driven.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Order (Trigger Event)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"product\": \"Abrigo Lana Manteco\",\n    \"quantity\": 1,\n    \"price\": 129.00\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/orders",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "orders"
+          ]
+        },
+        "description": "Crea un pedido, lo guarda en PostgreSQL y lanza un evento a Kafka."
+      },
+      "response": []
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/actuator/health",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "actuator",
+            "health"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
