@@ -1,0 +1,32 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build, Test and Lint
+        run: mvn -B clean verify checkstyle:check
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/testdb
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          KAFKA_BOOTSTRAP_SERVER: localhost:9092
+          KAFKA_KEY: dummy_key
+          KAFKA_SECRET: dummy_secret
